@@ -30,10 +30,16 @@ def merge_excel_files():
     current_datetime = datetime.now().strftime("%d.%m.%Y_%H-%M")
     output_file = f"combined_output_{current_datetime}.xlsx"
 
+    # Подсчитываем количество строк и непустых строк в столбце "Телефон контакта"
+    total_rows = combined_df.shape[0]
+    non_empty_phone_rows = combined_df['Телефон контакта'].dropna().shape[0]
+
     # Сохраняем объединенные данные в новый Excel файл
     if not combined_df.empty:
         combined_df.to_excel(output_file, index=False)
         print(f"Data successfully combined and saved to {output_file}")
+        print(f"Total rows in 'Телефон контакта': {total_rows}")
+        print(f"Non-empty rows in 'Телефон контакта': {non_empty_phone_rows}")
     else:
         print("No data found to combine.")
 
